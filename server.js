@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const workoutRoutes = require('./controllers/workouts');
 
 const PORT = process.env.PORT || 3001;
 
@@ -14,9 +13,9 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workouts', { useNewUrlParser: true });
+app.use(require('./controllers/workouts-api'));
 
-app.use('/api', workoutRoutes);
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workouts', { useNewUrlParser: true });
 
 // app.get('/', async (req, res) => {
 //     console.log('front page')
